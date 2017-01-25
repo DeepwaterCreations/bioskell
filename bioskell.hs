@@ -10,11 +10,10 @@ patternCount string@(x:xs) pattern
             | otherwise = patternMatch ss ps
 
 -- Transforms a string of k DNA nucleotides into an integer between 0 and 4^k-1
--- Currently reads the string backwards from how the book does it.
 patternToNumber :: String -> Int
-patternToNumber pattern@(x:xp)
-    |null xp = baseTo4git x
-    |otherwise = (4 * patternToNumber xp) + baseTo4git x
+patternToNumber pattern
+    |null (init pattern) = baseTo4git (last pattern)
+    |otherwise = (4 * patternToNumber (init pattern)) + baseTo4git (last pattern)
     where baseTo4git 'a' = 0
           baseTo4git 'c' = 1
           baseTo4git 'g' = 2
