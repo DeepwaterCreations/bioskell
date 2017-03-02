@@ -19,3 +19,14 @@ patternToNumber pattern
           baseTo4git 'g' = 2
           baseTo4git 't' = 3
           baseTo4git c = error ("Character '" ++ c:[] ++ "' not in dictionary")
+
+-- Reverses the patternToNumber transformation
+numberToPattern :: Int -> String
+numberToPattern number
+    |number < 4 = (fourgitToBase number)
+    |otherwise = numberToPattern (number `div` 4) ++ fourgitToBase (number - ((number `div` 4) * 4))
+    where fourgitToBase 0 = 'a':[]
+          fourgitToBase 1 = 'c':[]
+          fourgitToBase 2 = 'g':[]
+          fourgitToBase 3 = 't':[]
+          fourgitToBase n = error ("Number out of range. Expected 0-3.")
