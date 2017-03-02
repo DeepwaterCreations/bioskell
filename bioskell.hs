@@ -21,10 +21,10 @@ patternToNumber pattern
           baseTo4git c = error ("Character '" ++ c:[] ++ "' not in dictionary")
 
 -- Reverses the patternToNumber transformation
-numberToPattern :: Int -> String
-numberToPattern number
-    |number < 4 = (fourgitToBase number)
-    |otherwise = numberToPattern (number `div` 4) ++ fourgitToBase (number - ((number `div` 4) * 4))
+numberToPattern :: Int -> Int -> String
+numberToPattern number k
+    |number < 4 = (replicate (k - 1) 'a') ++ (fourgitToBase number)
+    |otherwise = numberToPattern (number `div` 4) (k - 1)  ++ fourgitToBase (number - ((number `div` 4) * 4))
     where fourgitToBase 0 = 'a':[]
           fourgitToBase 1 = 'c':[]
           fourgitToBase 2 = 'g':[]
